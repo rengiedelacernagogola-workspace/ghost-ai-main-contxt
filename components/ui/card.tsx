@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import { cn } from "cn"
 
@@ -89,14 +90,4 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   )
-}
-
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
 }

@@ -51,3 +51,5 @@ Update this file after every meaningful implementation change.
 
 - Next.js 16.4.2 + React 19.3.0 + Tailwind v4 + Base UI + Lucide React.
 - Both `npx tsc --noEmit` and `npm run build` verify 0 errors.
+
+
