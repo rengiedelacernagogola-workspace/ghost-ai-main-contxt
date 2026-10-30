@@ -9,6 +9,7 @@ import { cn } from "cn"
 type ProjectSidebarProps = {
   isOpen: boolean
   onClose: () => void
+  onNewProject: () => void
 }
 
 function EmptyProjects({ label }: { label: string }) {
@@ -19,7 +20,11 @@ function EmptyProjects({ label }: { label: string }) {
   )
 }
 
-export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
+export function ProjectSidebar({
+  isOpen,
+  onClose,
+  onNewProject,
+}: ProjectSidebarProps) {
   return (
     <aside
       aria-label="Projects"
@@ -56,7 +61,7 @@ export function ProjectSidebar({ isOpen, onClose }: ProjectSidebarProps) {
       </Tabs>
 
       <div className="border-t border-border-subtle p-3">
-        <Button className="w-full">
+        <Button className="w-full" onClick={onNewProject}>
           <Plus />
           New Project
         </Button>
