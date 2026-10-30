@@ -1,8 +1,9 @@
+import { EditorLayout } from "@/components/editor/editor-layout"
+
 export default function Home() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <p>I will be The best engineer</p>
-      <button>Click me if youre gay</button>
-    </div>
-  );
+    <EditorLayout>
+      <div className="h-full w-full bg-base" aria-label="Editor canvas" />
+    </EditorLayout>
+  )
 }
