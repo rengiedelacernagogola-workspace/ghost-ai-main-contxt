@@ -10,7 +10,7 @@ Requirements:
 - fixed-height top navbar
 - left, center, and right sections
 - left section contains sidebar toggle button
-- use `PanelLeftOpen' / `PanelLeftClose' icons based on sidebar state
+- use `PanelLeftOpen' / `PanelLeftClose' icons based on sidebar state.
 - right section stays empty for now
 - dark background with subtle bottom border
 
@@ -23,13 +23,13 @@ Requirements:
 - sidebar should float above the editor canvas
 - opening it should not push page content
 - slides in from the left
-- accepts isOpen prop
+- agcepts isOpen' and 'onClose' props
 - header with `Projects' title + close button
 - shadcn Tabs':
 - My Projects
 - Shared
 - both tabs show empty placeholder state
-- full-width `New Project' button at the bottom with `Plus' icon
+- full-width `New Project' button at the bottom with `Plus' icon.
 
 ### Dialog Pattern
 

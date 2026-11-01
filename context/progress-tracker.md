@@ -4,13 +4,22 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-- Complete: Phase 2 — Editor chrome (navbar, project sidebar, dialog pattern, editor layout)
+- Complete: Phase 3 — Authentication (Clerk provider, proxy route protection, dark theme appearance, sign-in/sign-up pages, auth redirects, user menu)
 
 ## Current Goal
 
 - Ready for the next feature unit specification.
 
 ## Completed
+
+- **03-auth**:
+  - Configured [`proxy.ts`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/proxy.ts) at the project root using `clerkMiddleware` to guard all routes by default and allow public auth paths defined via `NEXT_PUBLIC_CLERK_SIGN_IN_URL` and `NEXT_PUBLIC_CLERK_SIGN_UP_URL`.
+  - Wrapped root layout [`app/layout.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/app/layout.tsx) with `ClerkProvider` using Clerk's `dark` theme from `@clerk/themes` and CSS variables (`--bg-elevated`, `--accent-primary`, `--text-primary`, `--text-muted`, `--text-secondary`, `--bg-surface`, `--border-default`, `--radius`).
+  - Implemented [`app/page.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/app/page.tsx) server component redirecting authenticated users to `/editor` and unauthenticated users to `/sign-in`.
+  - Created [`app/editor/page.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/app/editor/page.tsx) hosting `EditorLayout`.
+  - Created minimal two-panel responsive auth pages [`app/sign-in/[[...sign-in]]/page.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/app/sign-in/%5B%5B...sign-in%5D%5D/page.tsx) and [`app/sign-up/[[...sign-up]]/page.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/app/sign-up/%5B%5B...sign-up%5D%5D/page.tsx) wrapped in `<Suspense>`.
+  - Integrated Clerk's built-in `UserButton` into the right section of [`components/editor/editor-navbar.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/components/editor/editor-navbar.tsx).
+  - Installed `@clerk/themes`.
 
 - **02-editor-layout**:
   - Wired [`EditorNavbar`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/components/editor/editor-navbar.tsx), [`ProjectSidebar`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/components/editor/project-sidebar.tsx), and [`DialogPattern`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/components/editor/dialog-pattern.tsx) through [`components/editor/editor-layout.tsx`](file:///e:/Agentic%20Projects/ghost-ai-main-contxt/components/editor/editor-layout.tsx).
@@ -38,7 +47,7 @@ Update this file after every meaningful implementation change.
 
 ## Next Up
 
-- Next feature unit from feature-specs (canvas, project creation form, or auth).
+- Next feature unit from feature-specs (canvas or project creation form).
 
 ## Open Questions
 
@@ -46,6 +55,10 @@ Update this file after every meaningful implementation change.
 
 ## Architecture Decisions
 
+- Configured root `proxy.ts` using Clerk middleware for route interception matching Next.js 16 conventions. Public paths configured via `NEXT_PUBLIC_CLERK_SIGN_IN_URL` and `NEXT_PUBLIC_CLERK_SIGN_UP_URL`, all other routes protected by default.
+- Standardized Clerk appearance variables to mirror system design tokens from `globals.css` (`var(--bg-elevated)`, `var(--accent-primary)`, etc.) on top of Clerk's `dark` theme.
+- Wrapped `<SignIn />` and `<SignUp />` with `<Suspense>` boundaries to satisfy Next.js 16 prerendering requirements for client hooks.
+- Marked `/` with `export const instant = false` to enable dynamic server-side session checks via `await auth()` without blocking build-time prerendering.
 - Configured shadcn/ui to use `@base-ui/react` primitives and modern compiled `cn` merging compatible with Tailwind v4.
 - Embedded color tokens directly into `:root` and `.dark` in `globals.css` to enforce a strict dark technical workspace with zero chance of light mode leakage.
 - Maintained strict component isolation: did not modify generated `components/ui/*` primitives.
@@ -53,5 +66,6 @@ Update this file after every meaningful implementation change.
 
 ## Session Notes
 
-- Next.js 16.4.2 + React 19.3.0 + Tailwind v4 + Base UI + Lucide React.
-- Navbar, overlay sidebar, and New Project dialog shell are mounted on the home page via `EditorLayout`.
+- Next.js 16.4.2 + React 19.3.0 + Tailwind v4 + Base UI + Lucide React + Clerk v7 (`@clerk/nextjs`, `@clerk/themes`).
+- Full authentication cycle verified: route protection, sign-in/sign-up pages, root redirection, and navbar user menu.
+- `npm run build` passes with zero errors.
